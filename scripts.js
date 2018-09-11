@@ -14,7 +14,7 @@ function getIphones()
   // after this has loaded call the filterIphones() function below to filter the results
 
   var ul = document.getElementById('results');
-  var url = require('./iphones.json');
+  var url = require('https://tristamstone.github.io/iphones.json');
 
   var iphones = fetch(url)
   .then(function(response)
