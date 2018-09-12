@@ -12,8 +12,7 @@
 <body >
        <div  class = "page">
              <div  class = "header">
-                   <div class = "logo"></div>
-                   <h1>ACME inc</h1>
+                   <a href = "//"><img src = "logo.png" alt = "ACME Inc." class = "logo"></a>
              </div>
 
              <div  class = "content">
@@ -21,24 +20,35 @@
                    <button type = "button" id = "searchButton" onclick = "getIphones()">Search</button>
 
                    <div  id = "results">
-                         Do a search to find iphones
+                         Press the search button above to display all iPhones.
+                         To filter results, enter a colour or capacity in the search box and press enter.
                    </div>
              </div>
 
-             <div  class="footer">
-                   <p>&copy; 2018 Fake Company</p>
-
+             <div  class = "footer">
                    <ul >
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href = "https://www.acmi.net.au/policies/">Privacy Policy</a></li>
+                        <li><a href = "https://www.acmi.net.au/website-terms/">Terms &amp; Conditions</a></li>
                    </ul>
+
+                   <p>&copy; 2018 Fake Company</p>
              </div>
        </div>
 
        <script src = "scripts.js"></script>
 
        <script >
-                // add events to the form to do the search
+                var input = document.getElementById("searchTerm");
+
+                input.addEventListener("keyup", function(event) 
+                {
+                  event.preventDefault();
+
+                  if (event.keyCode === 13) 
+                  {
+                    document.getElementById("searchButton").click();
+                  }
+                });
        </script>
 </body>
 </html>
