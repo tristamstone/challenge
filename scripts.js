@@ -18,6 +18,8 @@ function getIphones()
   const ul  = document.getElementById('results');
   const url = new Request('https://tristamstone.github.io/iphones.json');
 
+  var found = false;
+
   var iphones = fetch(url)
   .then(function(response)
   { 
@@ -29,45 +31,50 @@ function getIphones()
     {  
       if(iphone.color.match(regex))
       {
+        found = true;
         return iphone.color.match(regex);
       }
       else if(iphone.capacity.match(regex))
       {
+        found = true;
         return iphone.capacity.match(regex);
-      }
-      else
-      {
-        return null;
       }
     });
 
-    let list = createNode('ul');
-    append(ul, list);
-
-    return filteredIphones.map(function(iphone)
+    if(found == true)
     {
-      let li         = createNode('li'),
-      iphoneID       = createNode('span'),
-      iphoneName     = createNode('span');
-      iphoneColor    = createNode('span');
-      iphoneCapacity = createNode('span');
-      iphonePrice    = createNode('span');
+      let list = createNode('ul');
+      append(ul, list);
 
-      iphoneID.innerHTML       = `${iphone.id}. `;
-      iphoneID.className      += "phoneID";
-      iphoneName.innerHTML     = `${iphone.name} `;
-      iphoneColor.innerHTML    = `${iphone.color} `;
-      iphoneCapacity.innerHTML = `${iphone.capacity} `;
-      iphonePrice.innerHTML    = "$" + `${iphone.price}`;
+      return filteredIphones.map(function(iphone)
+      {
+        let li         = createNode('li'),
+        iphoneID       = createNode('span'),
+        iphoneName     = createNode('span');
+        iphoneColor    = createNode('span');
+        iphoneCapacity = createNode('span');
+        iphonePrice    = createNode('span');
 
-      
-      append(li, iphoneID);
-      append(li, iphoneName);
-      append(li, iphoneColor);
-      append(li, iphoneCapacity);
-      append(li, iphonePrice);
-      append(list, li);
-    })
+        iphoneID.innerHTML       = `${iphone.id}. `;
+        iphoneID.className      += "phoneID";
+        iphoneName.innerHTML     = `${iphone.name} `;
+        iphoneColor.innerHTML    = `${iphone.color} `;
+        iphoneCapacity.innerHTML = `${iphone.capacity} `;
+        iphonePrice.innerHTML    = "$" + `${iphone.price}`;
+  
+        append(li, iphoneID);
+        append(li, iphoneName);
+        append(li, iphoneColor);
+        append(li, iphoneCapacity);
+        append(li, iphonePrice);
+        append(list, li);
+      })
+    }
+    else
+    {
+      document.getElementById('results').innerHTML = "No results found.";
+      return false;
+    }
   })
   .catch(function(error) 
   {
