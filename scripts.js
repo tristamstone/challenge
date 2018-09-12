@@ -81,6 +81,3 @@ function getIphones()
     console.log(JSON.stringify(error));
   });  
 }
-
-
-
