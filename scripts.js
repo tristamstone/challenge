@@ -10,48 +10,63 @@ function append(parent, element)
 
 function getIphones() 
 {
-  // use the fetch API to load iphones.json
-  // after this has loaded call the filterIphones() function below to filter the results
 
-  var ul = document.getElementById('results');
-  var url = New Request('https://tristamstone.github.io/iphones.json');
+  const searchToken  = document.getElementById('searchTerm').value;
+  const regex        = new RegExp(searchToken,'i');  
+
+  document.getElementById('results').innerHTML = "";
+  const ul  = document.getElementById('results');
+  const url = new Request('https://tristamstone.github.io/iphones.json');
 
   var iphones = fetch(url)
   .then(function(response)
   { 
     return response.json(); 
   })
-  .then(function(data) 
-  {
-    let iphones = data.results;
+  .then(function(data)
+  {     
+    const filteredIphones = data.filter(function(iphone) 
+    {  
+      if(iphone.color.match(regex))
+      {
+        return iphone.color.match(regex);
+      }
+      else if(iphone.capacity.match(regex))
+      {
+        return iphone.capacity.match(regex);
+      }
+      else
+      {
+        return null;
+      }
+    });
 
+    let list = createNode('ul');
+    append(ul, list);
 
-// Put your filtering in here
-  var filteredIphones = iphones.filter(iphone => iphone.dob.age < 50);
-  
-
-
-    return filteredIphones.map(function(iphone) 
+    return filteredIphones.map(function(iphone)
     {
-      let li           = createNode('li'),
+      let li         = createNode('li'),
       iphoneID       = createNode('span'),
       iphoneName     = createNode('span');
-      iphoneColour   = createNode('span');
+      iphoneColor    = createNode('span');
       iphoneCapacity = createNode('span');
       iphonePrice    = createNode('span');
 
-      iphoneID.innerHTML       = `<strong>${iphone.dob.age}<strong>. `;
-      iphoneName.innerHTML     = `${iphone.name.first} `;
-      iphoneColour.innerHTML   = `${iphone.name.last} `;
-      iphoneCapacity.innerHTML = `${iphone.location.postcode} `;
-      iphonePrice.innerHTML    = "$" + `${iphone.dob.age}`;
+      iphoneID.innerHTML       = `${iphone.id}. `;
+      iphoneID.className      += "phoneID";
+      iphoneName.innerHTML     = `${iphone.name} `;
+      iphoneColor.innerHTML    = `${iphone.color} `;
+      iphoneCapacity.innerHTML = `${iphone.capacity} `;
+      iphonePrice.innerHTML    = "$" + `${iphone.price}`;
 
+      
       append(li, iphoneID);
       append(li, iphoneName);
-      append(li, iphoneColour);
+      append(li, iphoneColor);
       append(li, iphoneCapacity);
       append(li, iphonePrice);
-      append(ul, li);
+      append(list, li);
     })
   })
   .catch(function(error) 
@@ -59,48 +74,6 @@ function getIphones()
     console.log(JSON.stringify(error));
   });  
 }
-
-function filterIphones(iphones, searchTerm) 
-{
-  const filteredIphones = iphones.filter(function(iphone) 
-  { 
-    // filter the iphone
-  }) 
-
-  displayFilteredIphones(filteredIphones)
-}
-
-function displayFilteredIphones(iphones) 
-{
-  // take a list of filtered iphones and output them to the <div id="results"></div> in the browser
-
-  var ul = document.getElementById('results');
-
-  for (iphone in iphones)
-  {
-    let li         = createNode('li'),
-    iphoneID       = createNode('span'),
-    iphoneName     = createNode('span');
-    iphoneColour   = createNode('span');
-    iphoneCapacity = createNode('span');
-    iphonePrice    = createNode('span');
-
-    iphoneID.innerHTML       = `<strong>${iphone.dob.age}<strong>. `;
-    iphoneName.innerHTML     = `${iphone.name.first} `;
-    iphoneColour.innerHTML   = `${iphone.name.last} `;
-    iphoneCapacity.innerHTML = `${iphone.location.postcode} `;
-    iphonePrice.innerHTML    = "$" + `${iphone.dob.age}`;
-
-    append(li, iphoneID);
-    append(li, iphoneName);
-    append(li, iphoneColour);
-    append(li, iphoneCapacity);
-    append(li, iphonePrice);
-    append(ul, li);
-  }
-}
-
-
 
 
 
