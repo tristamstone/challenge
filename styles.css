@@ -65,9 +65,13 @@ input,
 button 
 {
   border         : 1px solid #a5a5a5;
-  background     : #dddddd;
   border-radius  : 2px;
   padding        : 5px;
+}
+
+button 
+{
+  background     : #dddddd;
 }
 
 h1
