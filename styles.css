@@ -114,6 +114,15 @@ h1
 
 @media (max-width: 767px) 
 {
+  body,
+  input,
+  button,
+  li
+  {
+    font-family : helvetica, arial, sans-serif;
+    font-size   : 16px; 
+  }
+
   .footer ul
   {
     flex-direction  : column;
