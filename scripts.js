@@ -49,20 +49,20 @@ function getIphones()
       return filteredIphones.map(function(iphone)
       {
         let li         = createNode('li'),
-        iphoneID       = createNode('span'),
+        //iphoneID       = createNode('span'),
         iphoneName     = createNode('span');
         iphoneColor    = createNode('span');
         iphoneCapacity = createNode('span');
         iphonePrice    = createNode('span');
 
-        iphoneID.innerHTML       = `${iphone.id}. `;
-        iphoneID.className      += "phoneID";
+        //iphoneID.innerHTML       = `${iphone.id}. `;
+        //iphoneID.className      += "phoneID";
         iphoneName.innerHTML     = `${iphone.name} `;
         iphoneColor.innerHTML    = `${iphone.color} `;
         iphoneCapacity.innerHTML = `${iphone.capacity} `;
         iphonePrice.innerHTML    = "$" + `${iphone.price}`;
   
-        append(li, iphoneID);
+        //append(li, iphoneID);
         append(li, iphoneName);
         append(li, iphoneColor);
         append(li, iphoneCapacity);
